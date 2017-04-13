@@ -1,6 +1,5 @@
 # Yatodo
-
-### Yet Another Todo app
+Yet Another Todo app
 
 This is another Todo web app which uses Spring for the API and AngularJS 2 for the 
 frontend. 
