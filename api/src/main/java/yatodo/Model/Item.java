@@ -1,9 +1,6 @@
 package yatodo.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by pachevjoseph on 4/12/17.
@@ -18,6 +15,28 @@ public class Item {
 	private String title;
 	private String body;
 	private boolean completed;
+
+	@ManyToOne()
+	@JoinColumn(name="item_group_id")
+	private ItemGroup group;
+
+	public Item(){}
+	public Item(String title) {
+		this.title = title;
+	}
+
+	public Item(String title, ItemGroup itemGroup) {
+		this.title = title;
+		this.group = itemGroup;
+	}
+
+	public ItemGroup getGroup() {
+		return group;
+	}
+
+	public void setGroup(ItemGroup group) {
+		this.group = group;
+	}
 
 	public String getTitle() {
 		return title;
