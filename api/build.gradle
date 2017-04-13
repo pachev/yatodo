@@ -1,32 +1,38 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
-    }
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
-jar {
-    baseName = 'yatodo'
-    version =  '0.0.1'
-}
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+configurations {
+	providedRuntime
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('com.h2database:h2')
+	runtime('mysql:mysql-connector-java')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
