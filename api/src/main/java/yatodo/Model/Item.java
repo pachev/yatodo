@@ -1,9 +1,12 @@
 package yatodo.Model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by pachevjoseph on 4/12/17.
@@ -26,6 +29,14 @@ public class Item {
 	@ManyToOne()
 	@JoinColumn(name="item_group_id")
 	private ItemGroup group;
+
+	@ManyToOne()
+    @JoinColumn(name="item_owner_id")
+    private TodoUser owner;
+
+
+    @CreationTimestamp
+    private Date createDateTime;
 
 	public Item(){}
 	public Item(String title) {
@@ -68,4 +79,19 @@ public class Item {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
+    public Date getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(Date createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public TodoUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(TodoUser owner) {
+        this.owner = owner;
+    }
 }

@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by pachev on 4/13/17.
@@ -35,6 +36,12 @@ public class TodoUser implements UserDetails {
     @NotEmpty
     private String password;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<Item> items;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<ItemGroup> groups;
+
     @ElementCollection
     private List<String> roles = new ArrayList<>();
 
@@ -42,29 +49,6 @@ public class TodoUser implements UserDetails {
     private String firstName;
     private String lastName;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public TodoUser() {}
 
@@ -99,9 +83,6 @@ public class TodoUser implements UserDetails {
         return authorities;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
     @Override
     @JsonIgnore
@@ -127,6 +108,9 @@ public class TodoUser implements UserDetails {
         return true;
     }
 
+    public String getUsername() {
+        return username;
+    }
     public void setUsername(String username) {
         this.username = username;
     }
@@ -137,5 +121,45 @@ public class TodoUser implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Set<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Item> items) {
+        this.items = items;
+    }
+
+    public Set<ItemGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<ItemGroup> groups) {
+        this.groups = groups;
     }
 }

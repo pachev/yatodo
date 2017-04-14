@@ -16,6 +16,10 @@ public class ItemGroup {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private Set<Item> items;
 
+    @ManyToOne()
+    @JoinColumn(name="group_owner_id")
+    private TodoUser owner;
+
     private String name;
 
     public ItemGroup(){}
@@ -38,5 +42,13 @@ public class ItemGroup {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public TodoUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(TodoUser owner) {
+        this.owner = owner;
     }
 }
