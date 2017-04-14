@@ -1,6 +1,9 @@
 package yatodo.Model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by pachevjoseph on 4/12/17.
@@ -12,8 +15,12 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+    @NotEmpty
+	@NotNull
 	private String title;
-	private String body;
+
+	@NotNull
+	private String body="";
 	private boolean completed;
 
 	@ManyToOne()
