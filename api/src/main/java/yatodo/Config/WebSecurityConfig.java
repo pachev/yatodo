@@ -41,4 +41,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// disabling the CSRF - Cross Site Request Forgery
 				.csrf().disable();
 	}
+
 }

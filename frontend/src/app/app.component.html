@@ -1,3 +1,9 @@
-<h1>
-  {{title}}
-</h1>
+<section class="yatodoapp">
+
+  <!-- header is now replaced with app-todo-list-header -->
+  <app-todo-item-create (add)="onAddTodo($event)"></app-todo-item-create>
+
+  <app-todo-group [todos]="todos" (toggleComplete)="onToggleTodoComplete($event)"
+                 (remove)="onRemoveTodo($event)"></app-todo-group>
+
+</section>

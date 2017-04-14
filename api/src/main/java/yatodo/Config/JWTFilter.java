@@ -38,10 +38,12 @@ public class JWTFilter extends GenericFilterBean {
 
 		if (authHeader == null || !authHeader.startsWith("Token ")) {
 			((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Authorization header.");
+			System.out.println("The error is with the header: " + authHeader);
 		} else {
 			try {
 				String token = authHeader.substring(6);
-				Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
+                System.out.println(authHeader);
+                Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
 				request.setAttribute("claims", claims);
 				SecurityContextHolder.getContext().setAuthentication(getAuthentication(claims));
 				filterChain.doFilter(req, res);
