@@ -48,6 +48,12 @@ public class Item {
 		this.group = itemGroup;
 	}
 
+	public Item(String title, ItemGroup itemGroup, TodoUser owner) {
+		this.title = title;
+		this.group = itemGroup;
+		this.owner = owner;
+	}
+
 	public ItemGroup getGroup() {
 		return group;
 	}

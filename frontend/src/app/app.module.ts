@@ -20,6 +20,7 @@ import {YatodoDataService} from './service/yatodo-data.service';
 import { AuthGuard } from './splash/auth.guard';
 import { routing } from './app.routing';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HomeComponent } from './home/home.component';
     TodoSidebarComponent,
     LoginComponent,
     HomeComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

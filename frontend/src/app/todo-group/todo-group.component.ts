@@ -33,6 +33,7 @@ export class TodoGroupComponent implements OnInit {
 
         this.dataService.getItems()
         .subscribe( emb =>{
+            if(emb){
             let items = emb._embedded.items;
             items.forEach((item)=> {
                 let todo = new Todo();
@@ -42,6 +43,8 @@ export class TodoGroupComponent implements OnInit {
                 todo.completed = item.completed;
                todos.push(todo);
             });
+
+            }
         },
         err => {
             console.log(err);

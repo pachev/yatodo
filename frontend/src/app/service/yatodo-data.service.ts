@@ -12,13 +12,6 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class YatodoDataService {
 
-    // Placeholder for last id so we can simulate
-    // automatic incrementing of id's
-    lastId: number = 0;
-
-    // Placeholder for todo's
-    todos: Todo[] = [];
-
 
     constructor(
         private http: Http,
@@ -28,7 +21,8 @@ export class YatodoDataService {
 
     // private instance variable to hold base url
     // TODO: grab settings from a config file 
-    private baseUrl = 'http://localhost:8000/api/items'; 
+    private baseUrl = `http://localhost:8000/api/users/`; 
+    private itemUrl = "http://localhost:8000/api/items";
 
     getItems() : Observable<any>{
 
@@ -36,7 +30,7 @@ export class YatodoDataService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         // ...using get request
-        return this.http.get(this.baseUrl, options)
+        return this.http.get(this.baseUrl + `${localStorage.getItem("currentUserId")}/items`, options)
         // ...and calling .json() on the response to return data
         .map((res:Response) => { 
             return res.json() ;
@@ -50,8 +44,10 @@ export class YatodoDataService {
         console.log("gonna add todo")
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
         let options = new RequestOptions({ headers: headers }); // Create a request option
+        let item = body;
+        item["owner"] = this.baseUrl + localStorage.getItem("currentUserId");
 
-        return this.http.post(this.baseUrl, body, options) // ...using post request
+        return this.http.post(this.itemUrl, item, options) // ...using post request
         .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
         .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }   

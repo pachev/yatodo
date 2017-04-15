@@ -27,6 +27,10 @@ public class ItemGroup {
     public ItemGroup(String name) {
         this.name = name;
     }
+    public ItemGroup(String name, TodoUser owner) {
+        this.name = name;
+        this.owner = owner;
+    }
 
     public Set<Item> getItems() {
         return items;

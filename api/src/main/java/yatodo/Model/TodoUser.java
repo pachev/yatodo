@@ -37,9 +37,11 @@ public class TodoUser implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Item> items;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<ItemGroup> groups;
 
     @ElementCollection

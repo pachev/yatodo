@@ -32,19 +32,20 @@ public class YatodoApplication implements CommandLineRunner{
 	public void run(String... strings) throws Exception {
 	    //initalize with a two item groups with some items in them
         //Debug purposes only
-		ItemGroup home = new ItemGroup("Home");
+		TodoUser pachev = new TodoUser("pachev", "password");
+		ItemGroup home = new ItemGroup("Home", pachev);
 		Set homeItems = new HashSet<Item>(){{
-			add(new Item("Call dave", home));
-			add(new Item("kiss wife", home));
-			add(new Item("pet dog", home));
+			add(new Item("Call dave", home, pachev));
+			add(new Item("kiss wife", home, pachev));
+			add(new Item("pet dog", home, pachev));
 		}};
 		home.setItems(homeItems);
 
-		ItemGroup work = new ItemGroup("Work");
+		ItemGroup work = new ItemGroup("Work", pachev);
 		Set workItems = new HashSet<Item>(){{
-			add(new Item("Finish report b", work));
-			add(new Item("Run tests", work));
-			add(new Item("pet boss", work));
+			add(new Item("Finish report b", work, pachev));
+			add(new Item("Run tests", work, pachev));
+			add(new Item("pet boss", work, pachev));
 		}};
 		work.setItems(workItems);
 
@@ -53,7 +54,7 @@ public class YatodoApplication implements CommandLineRunner{
 			add(work);
 		}});
 
-		todoUserRepository.save(new TodoUser("pachev", "password"));
+		todoUserRepository.save(pachev);
 	}
 
 }
