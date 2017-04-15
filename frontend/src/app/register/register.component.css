@@ -1,0 +1,62 @@
+.register-wrapper{
+  height: 100vh;
+  width: 100%;
+  background-image: url(https://images.unsplash.com/photo-1464983953574-0892a716854b?ixlib=rb-0.3.5…tropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=fb59cdff483c0964c9e6439c4ddd5f34);
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+}
+.register-filter{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.register-content{
+  position: absolute;
+  top: 50%;
+  margin-left: 0;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  color: white;
+  max-width: 500px;
+  text-align: center;
+  width: 100%;
+  border-radius: 6px;
+  background: rgba(228, 228, 228, 0.28);
+  padding-bottom: 20px;
+}
+@media (max-width: 600px){
+  .register-content{
+    max-width: 320px;
+  }
+}
+.register-button{
+  display: block;
+  width: 100%;
+  padding: 10px;
+  min-width: 170px;
+}
+.register-cancel{
+  color: white;
+  border-bottom: 1px solid white;
+  margin-top: 7px;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+}
+.register-title{
+  margin-bottom: 20px;
+  margin-top: 8px;
+}
+.register-form{
+  margin-bottom: 5px;
+}
+.register-input{
+  background: rgba(228, 228, 228, 0.97);
+  padding: 11px;
+  height: auto;
+}
+.register-img{
+  max-width: 50px;
+  margin-top: 23px;
+
+}
