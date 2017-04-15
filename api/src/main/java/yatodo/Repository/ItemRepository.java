@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by pachevjoseph on 4/12/17.
  */
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RepositoryRestResource(collectionResourceRel = "items", path = "items")
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
     List<Item> findByTitle(@PathVariable("title") String title);

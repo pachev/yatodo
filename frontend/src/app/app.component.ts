@@ -9,20 +9,7 @@ import {Todo} from './models/todo';
 })
 export class AppComponent {
 
-    constructor(private dataService: YatodoDataService ) {
-
+    constructor() {
     }
-    onAddTodo(todo) {
-        this.dataService.addItem(todo);
-    }
-
-    onToggleTodoComplete(todo) {
-        this.dataService.updateItem(todo);
-    }
-
-    onRemoveTodo(todo) {
-        this.dataService.removeItem(todo.id);
-    }
-
 
 }

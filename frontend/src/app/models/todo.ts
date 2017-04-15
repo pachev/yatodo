@@ -1,6 +1,7 @@
 export class Todo {
-    id: number;
+    id: String;
     title: String = '';
+    body: String = '';
     completed: boolean = false;
     created: String = '';
 

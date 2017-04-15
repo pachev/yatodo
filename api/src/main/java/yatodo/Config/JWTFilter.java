@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,6 +36,11 @@ public class JWTFilter extends GenericFilterBean {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		String authHeader = request.getHeader(AUTHORIZATION_HEADER);
+		//TODO: Fix logic here
+		if (request.getMethod().equals("OPTIONS")) {
+			filterChain.doFilter(req, res);
+			return;
+		}
 
 		if (authHeader == null || !authHeader.startsWith("Token ")) {
 			((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Authorization header.");

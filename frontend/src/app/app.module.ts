@@ -10,12 +10,16 @@ import { TodoGroupComponent } from './todo-group/todo-group.component';
 import { TodoItemCreateComponent } from './todo-item-create/todo-item-create.component';
 import { TodoGroupCompleteComponent } from './todo-group-complete/todo-group-complete.component';
 import { TodoSidebarComponent } from './todo-sidebar/todo-sidebar.component';
+import { LoginComponent } from './login/login.component';
 
 //Services
 import {AuthService} from './service/auth.service';
 import {YatodoDataService} from './service/yatodo-data.service';
 
 
+import { AuthGuard } from './splash/auth.guard';
+import { routing } from './app.routing';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,16 +28,20 @@ import {YatodoDataService} from './service/yatodo-data.service';
     TodoGroupComponent,
     TodoItemCreateComponent,
     TodoGroupCompleteComponent,
-    TodoSidebarComponent
+    TodoSidebarComponent,
+    LoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [
       AuthService,
-      YatodoDataService
+      YatodoDataService,
+      AuthGuard
   ],
   bootstrap: [AppComponent]
 })

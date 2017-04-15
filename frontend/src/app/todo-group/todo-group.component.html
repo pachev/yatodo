@@ -1,4 +1,6 @@
 <section class="main" *ngIf="todos.length > 0">
+  <!-- header is now replaced with app-todo-list-header -->
+  <app-todo-item-create (add)="onAddTodo($event)"></app-todo-item-create>
   <ul class="todo-group">
     <li *ngFor="let todo of todos" [class.completed]="todo.completed">
       <app-todo-item
