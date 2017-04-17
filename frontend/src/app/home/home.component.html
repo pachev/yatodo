@@ -1,13 +1,9 @@
 <section class="main">
-    <div class="row ">
-        <div class="homepage-side col-md-2 col-sm-12">
-            <div class="header"><p>Header goes here</p></div>
-            <h3> Groups Section</h3>
-            <div class="logout-link">
-                    <p><a [routerLink]="['/login']">Logout</a></p>
-            </div>
+    <div class="row main">
+        <div class="homepage-side col-md-2 col-sm-4">
+            <app-todo-sidebar></app-todo-sidebar>
         </div>
-        <div class="col-md-10 col-sm-12 group-wrapper">
+        <div class="col-md-10 col-sm-8 group-wrapper">
             <div class="homepage-section">
             <div class="homepage-header"></div>
                 <app-todo-group [todos]="todos" ></app-todo-group>

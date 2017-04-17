@@ -5,7 +5,7 @@
     width: 100%;
     padding-right: 3%;
     padding-left: 3%;
-  background-image: url(https://source.unsplash.com/RLw-UC03Gwc/1600x900);
+  background-image: url(https://source.unsplash.com/4bnZVr_szE4/1600x900);
   background-position: center center;
   background-size: cover;
 
@@ -13,6 +13,12 @@
 .homepage-side{
     height: 100vh;
     background-color: #e8e8e8 ;
+}
+
+@media (max-width: 766px){
+  .homepage-side{
+    height: 100%;
+  }
 }
 .homepage-header{
     color: white;

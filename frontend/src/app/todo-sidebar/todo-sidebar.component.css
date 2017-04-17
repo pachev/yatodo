@@ -1,0 +1,36 @@
+.logout-link{
+    color: black;
+    border-bottom: 1px solid white;
+    margin-top: 7px;
+    text-align: center;
+}
+
+.main{
+    text-align: center;
+}
+
+.username{
+    font-size: 23px;
+    text-transform: capitalize;
+    position: relative;
+    top:10px;
+    left: 20px;
+}
+.user-logo {
+    float: left;
+    display: block;
+    height: 45px;
+    width: 45px;
+    line-height: 45px;
+
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 1.7rem;
+    top: 5px;
+    left: 5px;
+    position: fixed;
+}
