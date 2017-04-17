@@ -1,12 +1,15 @@
-<section class="main" >
+<section class="main " >
   <!-- header is now replaced with app-todo-list-header -->
   <app-todo-item-create (add)="onAddTodo($event)"></app-todo-item-create>
-  <ul class="todo-group">
-    <li *ngFor="let todo of todos" [class.completed]="todo.completed">
-      <app-todo-item
-        [todo]="todo"
-        (toggleComplete)="onToggleTodoComplete($event)"
-        (remove)="onRemoveTodo($event)"></app-todo-item>
-    </li>
-  </ul>
+  <div class="itemgroup">
+      <ul class="list-group">
+          <li *ngFor="let todo of todos" class="list-group-item item" 
+              [class.completed]="todo.completed">
+              <app-todo-item
+                  [todo]="todo"
+                  (toggleComplete)="onToggleTodoComplete($event)"
+                  (remove)="onRemoveTodo($event)"></app-todo-item>
+          </li>
+      </ul>
+  </div>
 </section>

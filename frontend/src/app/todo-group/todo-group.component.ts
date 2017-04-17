@@ -71,8 +71,10 @@ export class TodoGroupComponent implements OnInit {
     }
 
     //From the todo create component, handle the toggle emmiter
+    //TODO: update to
     onToggleTodoComplete(todo) {
         let updatedTodo = new Todo();
+        
         this.dataService.updateItem(todo.id, {
             completed: !todo.completed
         })
@@ -85,6 +87,8 @@ export class TodoGroupComponent implements OnInit {
         err => {
             console.log(err);
         });
+        let index = this.todos.indexOf(todo);
+        this.todos[index] = updatedTodo;
 
         return updatedTodo;
     }

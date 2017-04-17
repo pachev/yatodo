@@ -1,0 +1,9 @@
+.itemgroup{
+    padding-bottom: 72px;
+}
+.todo-group{
+
+}
+.completed{
+    text-decoration: line-through;
+}
