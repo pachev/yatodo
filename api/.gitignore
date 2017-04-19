@@ -23,3 +23,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/quibuild.sh
+/src/main/docker/yatodo-0.0.1.jar
+/src/main/docker/*.jar
