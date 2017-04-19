@@ -1,9 +1,44 @@
 .itemgroup{
     padding-bottom: 72px;
+    height: 100vh;
 }
 .todo-group{
 
 }
+.list-group{
+  height: 100vh;
+}
 .completed{
     text-decoration: line-through;
 }
+.item{
+    margin: 1px;
+}
+a.list-group-item.item {
+    border: none;
+    background-color: #c1baad;
+    margin: 2px;
+}
+
+/* .todo{ */
+/*   animation-name: fadeInUp; */
+/*   animation-duration: 0.25s; */
+/*   animation-fill-mode: both; */
+/*   animation-timing-function: ease-out; */
+/*   opacity: 0; */
+/* } */
+/*  */
+/*  */
+/* TODO: Fix animation on every click of the checked button */
+/* [ngStyle]="{'animation-delay': i*0.15+'s'}" */
+/* @keyframes fadeInUp{ */
+/*   from{ */
+/*     transform: translate3d(0, 100%, 0); */
+/*     opacity: 0; */
+/*   } */
+/*  */
+/*   to{ */
+/*     opacity: 1; */
+/*     transfrom: none; */
+/*   } */
+/* } */

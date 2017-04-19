@@ -3,31 +3,32 @@
     height: 100vh;
     margin: 0;
     width: 100%;
-    padding-right: 3%;
-    padding-left: 3%;
-  background-image: url(https://source.unsplash.com/4bnZVr_szE4/1600x900);
-  background-position: center center;
-  background-size: cover;
-
+    padding-right: 8%;
+    padding-left: 8%;
 }
 .homepage-side{
     height: 100vh;
-    background-color: #e8e8e8 ;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+
 }
 
-@media (max-width: 766px){
-  .homepage-side{
-    height: 100%;
-  }
+@media (max-width: 767px){
+    .homepage-side{
+        height: 100%;
+    }
 }
 .homepage-header{
     color: white;
     padding: 4px;
 }
 .group-wrapper{
-padding: 0;
+    padding: 0;
 
 }
 .main{
     overflow: hidden;
+    background-image: url(/assets/img/home-bg.jpeg);
+    background-position: center center;
+    background-size: cover;
 }

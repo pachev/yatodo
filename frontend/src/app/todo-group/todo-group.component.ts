@@ -1,6 +1,7 @@
 //TODO: update todo model to look exaclty like te api version with links
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import {Todo} from '../models/todo';
+import {TodoGroup} from '../models/todo-group';
 import {YatodoDataService} from '../service/yatodo-data.service';
 
 @Component({
@@ -10,52 +11,27 @@ import {YatodoDataService} from '../service/yatodo-data.service';
 })
 export class TodoGroupComponent implements OnInit {
 
+    public inbox: Todo[];
+
     @Input()
     todos: Todo[];
 
-    @Output()
-    remove: EventEmitter<Todo> = new EventEmitter();
-
-    @Output()
-    toggleComplete: EventEmitter<Todo> = new EventEmitter();
+    @Input()
+    group: TodoGroup;
 
 
     constructor(private dataService: YatodoDataService) { }
 
     //Load the llist of remote items as this component gets initated
     ngOnInit() {
-        this.loadTodos();
+        this.inbox = this.todos;
     }
 
-
-    loadTodos(){
-        let todos = [];
-
-        this.dataService.getItems()
-        .subscribe( emb =>{
-            if(emb){
-            let items = emb._embedded.items;
-            items.forEach((item)=> {
-                let todo = new Todo();
-                todo.id = item._links.item.href;
-                todo.title = item.title;
-                todo.body = item.body;
-                todo.completed = item.completed;
-               todos.push(todo);
-            });
-
-            }
-        },
-        err => {
-            console.log(err);
-            //TODO: add better error handling
-        });
-        this.todos = todos;
-    }
 
     //From the todo create component, handle the add emmiter
     onAddTodo(todo) {
-        this.dataService.addItem(todo)
+        console.log(this.group);
+        this.dataService.addItem(todo, this.group)
         .subscribe( item => {
             let todo = new Todo();
             todo.id = item._links.item.href;
@@ -63,6 +39,7 @@ export class TodoGroupComponent implements OnInit {
             todo.body = item.body;
             todo.completed = item.completed;
             this.todos.push(todo);
+            this.group.count +=1;
         },
         err => {
             console.log(err);
@@ -71,7 +48,6 @@ export class TodoGroupComponent implements OnInit {
     }
 
     //From the todo create component, handle the toggle emmiter
-    //TODO: update to
     onToggleTodoComplete(todo) {
         let updatedTodo = new Todo();
         
@@ -101,6 +77,7 @@ export class TodoGroupComponent implements OnInit {
             if(item){
                 this.todos = this.todos
                 .filter(t => t.id !== todo.id);
+                this.group.count -=1;
             }
         }, 
         err =>{

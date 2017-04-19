@@ -4,6 +4,7 @@ export class Todo {
     body: String = '';
     completed: boolean = false;
     created: String = '';
+    selected: boolean=false;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

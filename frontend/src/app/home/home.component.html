@@ -1,12 +1,14 @@
 <section class="main">
     <div class="row main">
-        <div class="homepage-side col-md-2 col-sm-4">
-            <app-todo-sidebar></app-todo-sidebar>
+        <div class="homepage-side col-md-2 col-sm-3">
+            <app-todo-sidebar [groups]="groups" [inbox]="inbox"
+                (swap)="onSwitchGroup($event)" (newGroup)="onAddGroup($event)"></app-todo-sidebar>
         </div>
-        <div class="col-md-10 col-sm-8 group-wrapper">
+        <div class="col-md-10 col-sm-9 group-wrapper">
             <div class="homepage-section">
             <div class="homepage-header"></div>
-                <app-todo-group [todos]="todos" ></app-todo-group>
+            <app-todo-group [todos]="todos" [group]="currentGroup"
+                ></app-todo-group>
             </div>
         </div>
     </div>

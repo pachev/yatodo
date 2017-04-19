@@ -6,7 +6,7 @@
         <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
             <div class="form-group login-form" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
 
-                <input type="text" class="form-control login-input" name="username" [(ngModel)]="model.username" #username="ngModel" placeholder="Username" equired />
+                <input type="text" class="form-control login-input" name="username" [(ngModel)]="model.username" #username="ngModel" placeholder="Username" required />
                 <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
             </div>
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">

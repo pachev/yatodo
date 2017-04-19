@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+//Modal imports
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
 //Components
 import { AppComponent } from './app.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
@@ -38,7 +42,9 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [
       AuthService,

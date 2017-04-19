@@ -1,12 +1,14 @@
 import {Todo} from './todo'
 
 export class TodoGroup {
-    id: number;
-    name: String = '';
-    items: Todo[] = [];
+    name: string = '';
+    id: string='';
+    items: string = '';
+    count: number= 0;
+    selected: boolean=false;
 
-    constructor () {
-
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
     }
 
 }
