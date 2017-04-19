@@ -8,8 +8,6 @@ services:
       - api
     ports:
       - "80:80"
-    volumes:
-      - springfiles:/tmp
 
   api:
     restart: always
@@ -19,7 +17,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - springfiles:/tmp
+      - apifiles:/tmp
 
   db:
     restart: always
@@ -30,14 +28,14 @@ services:
        MYSQL_USER: yatodouser
        MYSQL_PASSWORD: yatodo
     volumes:
-      - mysql:/var/lib/mysql
+      - maindb:/var/lib/mysql
 
     ports:
       - "3306:3306"
 
 volumes:
-  mysql:
+  maindb:
     driver: local
 
-  springfiles:
+  apifiles:
     driver: local
