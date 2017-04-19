@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  app:
+    restart: always
+    build: frontend/
+    links:
+      - api
+    ports:
+      - "80:80"
+    volumes:
+      - springfiles:/tmp
+
+  api:
+    restart: always
+    build: api/src/main/docker
+    links:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - springfiles:/tmp
+
+  db:
+    restart: always
+    image: mysql:5.7
+    environment:
+       MYSQL_ROOT_PASSWORD: strongp@ssw0RD
+       MYSQL_DATABASE: yatodo
+       MYSQL_USER: yatodouser
+       MYSQL_PASSWORD: yatodo
+    volumes:
+      - mysql:/var/lib/mysql
+
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql:
+    driver: local
+
+  springfiles:
+    driver: local
