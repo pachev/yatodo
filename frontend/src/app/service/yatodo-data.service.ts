@@ -32,15 +32,13 @@ export class YatodoDataService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         // ...using get request
-        return this.http.get(
-            this.baseUrl + `${localStorage.getItem("currentUserId")}/items?sort=createDateTime&createDateTime.dir=desc`, 
-            options)
-            // ...and calling .json() on the response to return data
-            .map((res:Response) => { 
-                return res.json() ;
-            })
-            //...errors if any
-            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+        return this.http.get(this.baseUrl + `${localStorage.getItem("currentUserId")}/items`, options)
+        // ...and calling .json() on the response to return data
+        .map((res:Response) => { 
+            return res.json() ;
+        })
+        //...errors if any
+        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
     }
 

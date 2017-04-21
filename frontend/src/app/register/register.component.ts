@@ -18,6 +18,7 @@ constructor(
         private authService: AuthService) { }
  
     register() {
+        console.log("being called");
         this.loading = true;
         this.authService.register(this.model)
             .subscribe(

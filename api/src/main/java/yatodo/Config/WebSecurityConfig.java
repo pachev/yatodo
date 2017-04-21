@@ -1,5 +1,6 @@
 package yatodo.Config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,7 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web){
         web.ignoring()
-                .antMatchers("/api", "/api/login","/api/register");
+                .antMatchers("/api", "/api/login","/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
+						"/configuration/security", "/swagger-ui.html", "/webjars/**");
     }
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -39,7 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// starts authorizing configurations
 				.authorizeRequests()
 				// authenticate all remaining URLS
-                //TODO: add filter for jwt on each token
 				.antMatchers("/api/**").permitAll()
 				.anyRequest().fullyAuthenticated().and()
 				// adding JWT filter
@@ -52,6 +53,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// disabling the CSRF - Cross Site Request Forgery
 				.csrf().disable();
 	}
+	  @Override
+	  public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		  auth
+                 //Debug purposes only
+				  .inMemoryAuthentication()
+				  .withUser("user").password("password").roles("USER");
+	  }
 
 	@Bean
 	public CorsFilter corsFilter() {
