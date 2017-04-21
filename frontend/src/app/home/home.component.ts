@@ -10,10 +10,10 @@ import {YatodoDataService} from '../service/yatodo-data.service';
 })
 export class HomeComponent implements OnInit {
 
-    todos: Todo[];
-    groups: TodoGroup[];
-    currentGroup: TodoGroup; 
-    inbox: TodoGroup = new TodoGroup();
+    public todos: Todo[];
+    public groups: TodoGroup[];
+    public currentGroup: TodoGroup; 
+    public inbox: TodoGroup = new TodoGroup();
 
     public initialAnimation = true;
 

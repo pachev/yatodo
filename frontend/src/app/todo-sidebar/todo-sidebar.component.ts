@@ -55,10 +55,13 @@ export class TodoSidebarComponent implements OnInit {
             return message.result;
         }).then(res =>{
             let group = new TodoGroup({name : res, count: 0});
-            console.log(group);
             this.groups.push(group)
             this.newGroup.emit(group);
         })
 
+    }
+
+    promptDelete() {
+        console.log("clicked");
     }
 }

@@ -36,7 +36,8 @@ public class JWTFilter extends GenericFilterBean {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		String authHeader = request.getHeader(AUTHORIZATION_HEADER);
-		//TODO: Fix logic here
+
+		//Excluding OPTIONs requests for the token check
 		if (request.getMethod().equals("OPTIONS")) {
 			filterChain.doFilter(req, res);
 			return;
@@ -48,7 +49,6 @@ public class JWTFilter extends GenericFilterBean {
 		} else {
 			try {
 				String token = authHeader.substring(6);
-                System.out.println(authHeader);
                 Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
 				request.setAttribute("claims", claims);
 				SecurityContextHolder.getContext().setAuthentication(getAuthentication(claims));

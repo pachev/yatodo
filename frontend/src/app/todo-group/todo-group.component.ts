@@ -11,10 +11,12 @@ import {YatodoDataService} from '../service/yatodo-data.service';
 })
 export class TodoGroupComponent implements OnInit {
 
-    public inbox: Todo[];
 
     @Input()
     todos: Todo[];
+
+    @Input()
+    inbox: TodoGroup;
 
     @Input()
     group: TodoGroup;
@@ -24,7 +26,6 @@ export class TodoGroupComponent implements OnInit {
 
     //Load the llist of remote items as this component gets initated
     ngOnInit() {
-        this.inbox = this.todos;
     }
 
 
@@ -40,6 +41,8 @@ export class TodoGroupComponent implements OnInit {
             todo.completed = item.completed;
             this.todos.push(todo);
             this.group.count +=1;
+            if(this.group.name !=="Todos")
+                this.inbox.count +=1;
         },
         err => {
             console.log(err);

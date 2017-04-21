@@ -5,20 +5,20 @@ services:
     restart: always
     build: ./src/main/docker
     links:
-      - db
+      - indb
     ports:
       - "8000:8000"
     volumes:
       - springfiles:/tmp
 
-  db:
+  indb:
     restart: always
     image: mysql:5.7
     environment:
        MYSQL_ROOT_PASSWORD: strongp@ssw0RD
        MYSQL_DATABASE: yatodo
        MYSQL_USER: yatodouser
-       MYSQL_PASSWORD: yatodo
+       MYSQL_PASSWORD: strongp@ssw0RD
     volumes:
       - mysql:/var/lib/mysql
 
