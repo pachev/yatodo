@@ -13,10 +13,14 @@ import java.util.List;
 
 /**
  * Created by pachevjoseph on 4/12/17.
+ * This repository is Spring Data/Spring Jpa's way of providing an
+ * interface between teh database and our models. The annotation
+ * @RepositoryRestResource wires up our entities so that rest
+ * endpoints are created automatically without the need to create
+ * specific services or controllers
  */
-@CrossOrigin(origins = "http://bluff.cs.fiu.edu:4200")
+@CrossOrigin(origins = "*")
 @RepositoryRestResource(collectionResourceRel = "items", path = "items")
-@Api(value = "Item Repository", description = "Automatic endpoints of item repository")
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
     List<Item> findByTitle(@PathVariable("title") String title);

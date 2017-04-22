@@ -10,6 +10,10 @@ import java.util.Date;
 
 /**
  * Created by pachevjoseph on 4/12/17.
+ * Creates the Item entity that will be stored in
+ * the database. This creates relationships between
+ * groups and users in order to track items that belong
+ * to certain users and groups
  */
 
 @Entity

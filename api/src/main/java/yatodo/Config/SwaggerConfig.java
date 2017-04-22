@@ -1,5 +1,6 @@
 package yatodo.Config;
 
+import com.google.common.base.Predicates;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
  @Configuration
  @EnableSwagger2
- @ComponentScan
+ @ComponentScan()
  public class SwaggerConfig {
 
      /** The title for the spring boot service to be displayed on swagger UI. */
@@ -61,6 +62,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
          return new Docket(DocumentationType.SWAGGER_2)
                  .select()
                     .apis(RequestHandlerSelectors.any())
+                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
                     .paths(PathSelectors.any())
                     .build()
                     .apiInfo(apiInfo());

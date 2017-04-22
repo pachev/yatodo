@@ -16,6 +16,8 @@ import { TodoGroupCompleteComponent } from './todo-group-complete/todo-group-com
 import { TodoSidebarComponent } from './todo-sidebar/todo-sidebar.component';
 import { LoginComponent } from './login/login.component';
 
+import {Settings} from './settings'
+
 //Services
 import {AuthService} from './service/auth.service';
 import {YatodoDataService} from './service/yatodo-data.service';
@@ -49,7 +51,8 @@ import { RegisterComponent } from './register/register.component';
   providers: [
       AuthService,
       YatodoDataService,
-      AuthGuard
+      AuthGuard,
+      Settings
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 package yatodo.Config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,12 +30,16 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     @Override
     public void configure(WebSecurity web){
+        //The following paths are not needed for authentication through browsers
         web.ignoring()
-                .antMatchers("/api", "/api/login","/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
+                .antMatchers("/api/","/api/register", "/api/login","/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
 						"/configuration/security", "/swagger-ui.html", "/webjars/**");
     }
+
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -58,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  auth
                  //Debug purposes only
 				  .inMemoryAuthentication()
-				  .withUser("user").password("password").roles("USER");
+				  .withUser("user").password("p@ssw0RD").roles("USER");
 	  }
 
 	@Bean
@@ -75,6 +80,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedMethod("PATCH");
 		config.addAllowedMethod("DELETE");
 		source.registerCorsConfiguration("/api/**", config);
+
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(Integer.MIN_VALUE);
 		return new CorsFilter(source);
 	}
 

@@ -25,9 +25,9 @@ import java.util.*;
 /**
  * Created by pachevjoseph on 4/13/17.
  */
-@RestController
+@RestController("Authcontroller")
 @RequestMapping("/api")
-@Api(value = "Authentication", description = "Endpoints for login, register, and retrieve user from token")
+@Api(value = "Authcontroller", description = "Endpoints for authentication")
 public class AuthController {
 
     @Value("${jwt.secretkey}")
@@ -70,30 +70,30 @@ public class AuthController {
 
     /**
      *
-     * @param td a user that has been registered
+     * @param user a user that has been registered
      * @param response the request object so that the header is retrieved
      * @return a jwt that is to be used for all other requests
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "Login and receive a token", notes = "A Jwt is provided with a 10 day expiry after posting to this endpoint")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody TodoUser td,
+    public ResponseEntity<Map<String, Object>> login(@RequestBody TodoUser user,
                                                      HttpServletResponse response) throws IOException {
 
         String token = null;
 
 
-        TodoUser todoUser = todoUserRepository.findOneByUsername(td.getUsername());
+        TodoUser todoUser = todoUserRepository.findOneByUsername(user.getUsername());
         Map<String, Object> tokenMap = new HashMap<String, Object>();
 
-        if (todoUser != null && todoUser.getPassword().equals(td.getPassword())) {
-            token = Jwts.builder().setSubject(td.getUsername()).claim("roles", todoUser.getRoles()).setIssuedAt(new Date())
+        if (todoUser != null && todoUser.getPassword().equals(user.getPassword())) {
+            token = Jwts.builder().setSubject(user.getUsername()).claim("roles", todoUser.getRoles()).setIssuedAt(new Date())
                     .signWith(SignatureAlgorithm.HS256,secret ).compact();
 
-            tokenMap.put("token", token);
+            tokenMap.put("Token", token);
             tokenMap.put("user", todoUser);
             return new ResponseEntity<Map<String, Object>>(tokenMap, HttpStatus.OK);
         } else {
-            tokenMap.put("token", null);
+            tokenMap.put("Token", null);
             return new ResponseEntity<Map<String, Object>>(tokenMap, HttpStatus.UNAUTHORIZED);
         }
 

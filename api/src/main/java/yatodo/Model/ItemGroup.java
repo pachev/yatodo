@@ -5,6 +5,8 @@ import java.util.Set;
 
 /**
  * Created by pachev on 4/13/17.
+ * This entity will contain the group
+ * that the items can be placed in
  */
 @Entity
 @Table(name = "item_group")

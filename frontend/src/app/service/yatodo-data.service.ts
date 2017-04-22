@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Rx';
 import {Todo} from '../models/todo';
 import {TodoGroup} from '../models/todo-group';
 import {AuthService} from './auth.service';
+import {Settings} from '../settings'
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -16,15 +17,16 @@ export class YatodoDataService {
     constructor(
         private http: Http,
         private authService: AuthService,
+        private settings: Settings
     ) { }
 
 
     // private instance variable to hold base url
     // TODO: grab settings from a config file 
-    private baseUrl = `http://localhost:8000/api/users/`; 
-    private itemUrl = "http://localhost:8000/api/items";
-    private groupUrl = "http://localhost:8000/api/groups";
-    private groupCountUrl = "http://localhost:8000/api/items/search/countByGroup_Name";
+    private baseUrl = this.settings.baseUserUrl; 
+    private itemUrl = this.settings.itemUrl;
+    private groupUrl = this.settings.groupUrl;
+    private groupCountUrl = this.settings.groupCountUrl;;
 
     getItems() : Observable<any>{
 

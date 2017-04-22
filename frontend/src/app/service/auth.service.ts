@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import {Settings} from '../settings';
+
 import 'rxjs/add/operator/map'
- 
+
 @Injectable()
 export class AuthService {
     public token: string;
     public id;
- 
-    constructor(private http: Http) {
+
+    constructor(private http: Http, private settings: Settings) {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
-    private baseURL = 'http://localhost:8000/api/';
- 
+    private baseURL = this.settings.baseUrl;
+
     login(username: string, password: string): Observable<boolean> {
         let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         let options = new RequestOptions({ headers: headers }); // Create a request option
@@ -22,7 +24,7 @@ export class AuthService {
         return this.http.post(this.baseURL+"login", JSON.stringify({ username: username, password: password }), options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
+                let token = response.json() && response.json().Token;
                 let id = response.json() && response.json().user.id;
                 this.id = id;
                 let username = response.json() && response.json().user.username;
@@ -30,12 +32,12 @@ export class AuthService {
                 if (token) {
                     // set token property
                     this.token = token;
- 
+
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
                     localStorage.setItem('currentUserId', id)
                     localStorage.setItem('currentUserName', username)
- 
+
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -53,7 +55,7 @@ export class AuthService {
             .map((response: Response) => response.json())
             .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
- 
+
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
