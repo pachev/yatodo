@@ -81,8 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedMethod("DELETE");
 		source.registerCorsConfiguration("/api/**", config);
 
-//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-//        bean.setOrder(Integer.MIN_VALUE);
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(Integer.MIN_VALUE);
 		return new CorsFilter(source);
 	}
 

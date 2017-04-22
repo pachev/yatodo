@@ -63,6 +63,7 @@ public class JWTFilter extends GenericFilterBean {
         } else {
             try {
                 String token = authHeader.substring(6);
+                ((HttpServletResponse) res).setHeader("Access-Control-Allow-Origin", "*");
                 Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
                 request.setAttribute("claims", claims);
                 SecurityContextHolder.getContext().setAuthentication(getAuthentication(claims));
