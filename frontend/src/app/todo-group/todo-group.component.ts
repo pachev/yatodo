@@ -31,7 +31,6 @@ export class TodoGroupComponent implements OnInit {
 
     //From the todo create component, handle the add emmiter
     onAddTodo(todo) {
-        console.log(this.group);
         this.dataService.addItem(todo, this.group)
         .subscribe( item => {
             let todo = new Todo();

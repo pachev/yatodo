@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,8 +31,8 @@ public class JWTFilter extends GenericFilterBean {
 	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String AUTHORITIES_KEY = "roles";
 
-	@Value("${jwt.secretkey}") //Key retrieved from properties to be used for encrypting and decrypting
-	private String secret;
+	@Value("${jwt.secretKey}") //Key retrieved from properties to be used for encrypting and decrypting
+	private String secretKey;
 
 
     /**
@@ -55,7 +54,6 @@ public class JWTFilter extends GenericFilterBean {
 			filterChain.doFilter(req, res);
 			return;
 		}
-        System.out.println("path" + request.getPathInfo());
 
 		if (authHeader == null || !authHeader.startsWith("Token ")) {
 			((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Authorization header.");
@@ -64,7 +62,7 @@ public class JWTFilter extends GenericFilterBean {
             try {
                 String token = authHeader.substring(6);
                 ((HttpServletResponse) res).setHeader("Access-Control-Allow-Origin", "*");
-                Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
                 request.setAttribute("claims", claims);
                 SecurityContextHolder.getContext().setAuthentication(getAuthentication(claims));
                 filterChain.doFilter(req, res);

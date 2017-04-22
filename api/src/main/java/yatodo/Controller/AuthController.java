@@ -30,8 +30,8 @@ import java.util.*;
 @Api(value = "Authcontroller", description = "Endpoints for authentication")
 public class AuthController {
 
-    @Value("${jwt.secretkey}")
-    private String secret;
+    @Value("${jwt.secretKey}")
+    private String secretKey;
 
     @Autowired
     private TodoUserRepository todoUserRepository;
@@ -87,7 +87,7 @@ public class AuthController {
 
         if (todoUser != null && todoUser.getPassword().equals(user.getPassword())) {
             token = Jwts.builder().setSubject(user.getUsername()).claim("roles", todoUser.getRoles()).setIssuedAt(new Date())
-                    .signWith(SignatureAlgorithm.HS256,secret ).compact();
+                    .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 
             tokenMap.put("Token", token);
             tokenMap.put("user", todoUser);
