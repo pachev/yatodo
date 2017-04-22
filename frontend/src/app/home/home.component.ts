@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Todo} from '../models/todo';
 import {TodoGroup} from '../models/todo-group';
 import {YatodoDataService} from '../service/yatodo-data.service';
+import {Settings} from '../settings';
 
 @Component({
     selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
 
     public initialAnimation = true;
 
-    constructor(private dataService: YatodoDataService) { }
+    constructor(private dataService: YatodoDataService, private settings: Settings) { }
 
     ngOnInit() {
         this.loadAllTodos();
@@ -30,8 +31,7 @@ export class HomeComponent implements OnInit {
         let todos = [];
         this.inbox.name = 'Todos'
         let count = 0;
-        //This should come from a settings file;
-        this.inbox.items = 'http://localhost:8000/api/users/'+ `${localStorage.getItem("currentUserId")}/items`
+        this.inbox.items = this.settings.baseUserUrl+ `${localStorage.getItem("currentUserId")}/items`;
 
         this.dataService.getItems()
         .subscribe( emb =>{

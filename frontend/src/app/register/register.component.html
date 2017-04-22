@@ -17,6 +17,7 @@
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <input type="email" class="form-control login-input" placeholder="Email"
                     name="email" [(ngModel)]="model.email" #email="ngModel" required />
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <input type="text" class="form-control login-input" placeholder="Username"
