@@ -19,6 +19,6 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "groups", path = "groups")
 @CrossOrigin(origins = "*")
-public interface ItemGroupRepository extends PagingAndSortingRepository<ItemGroup, Long>{
+public interface ItemGroupRepository extends CrudRepository<ItemGroup, Long>{
     List<ItemGroup> findByName(@Param("name") String name);
 }

@@ -1,6 +1,7 @@
 package yatodo.Repository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +17,7 @@ import yatodo.Model.TodoUser;
  */
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 @CrossOrigin(origins = "*")
-public interface TodoUserRepository extends PagingAndSortingRepository<TodoUser, Long> {
+public interface TodoUserRepository extends CrudRepository<TodoUser, Long> {
     //Search method for finding a user by username
     public TodoUser findOneByUsername(String username);
 

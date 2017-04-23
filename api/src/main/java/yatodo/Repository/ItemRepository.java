@@ -2,6 +2,7 @@ package yatodo.Repository;
 
 import io.swagger.annotations.Api;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 @CrossOrigin(origins = "*")
 @RepositoryRestResource(collectionResourceRel = "items", path = "items")
-public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
+public interface ItemRepository extends CrudRepository<Item, Long> {
 
     List<Item> findByTitle(@PathVariable("title") String title);
     List<Item> findByCompleted(@PathVariable("completed")boolean completed);
