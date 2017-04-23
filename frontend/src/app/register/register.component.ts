@@ -23,11 +23,10 @@ constructor(
         this.authService.register(this.model)
             .subscribe(
                 data => {
-                    // set success message and pass true paramater to persist the message after redirecting to the login page
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    this.error = 'Fialed To Register';
+                    this.error = 'Failed To Register';
                     this.loading = false;
                 });
     }

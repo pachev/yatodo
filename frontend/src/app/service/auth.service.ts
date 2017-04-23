@@ -23,6 +23,7 @@ export class AuthService {
 
         return this.http.post(this.baseURL+"login", JSON.stringify({ username: username, password: password }), options)
             .map((response: Response) => {
+
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().Token;
                 let id = response.json() && response.json().user.id;
@@ -62,5 +63,6 @@ export class AuthService {
         this.id = null;
         localStorage.removeItem('currentUser');
         localStorage.removeItem('currentUserId');
+        localStorage.removeItem('currentUserName');
     }
 }

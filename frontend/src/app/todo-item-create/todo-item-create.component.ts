@@ -15,6 +15,7 @@ export class TodoItemCreateComponent {
 
     constructor() { }
 
+    //Emits to the parent class to add a todo
     addTodo() {
         this.add.emit(this.newTodo);
         this.newTodo = new Todo();

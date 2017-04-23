@@ -13,13 +13,18 @@ export class TodoGroupComponent implements OnInit {
 
 
     @Input()
-    todos: Todo[];
+    todos: Todo[]; //List of todos coming in from the home component
 
     @Input()
-    inbox: TodoGroup;
+    inbox: TodoGroup; //The current inbox coming in from the home component
 
     @Input()
-    group: TodoGroup;
+    group: TodoGroup; //The current group displayed coming in from home component
+
+    @Input()
+    completed: Todo[]; //The current group of completed items
+
+
 
 
     constructor(private dataService: YatodoDataService) { }
@@ -40,7 +45,8 @@ export class TodoGroupComponent implements OnInit {
             todo.completed = item.completed;
             this.todos.push(todo);
             this.group.count +=1;
-            if(this.group.name !=="Todos")
+
+            if(this.group.name !=="Todos") //prevent updating inbox twice
                 this.inbox.count +=1;
         },
         err => {
@@ -65,10 +71,12 @@ export class TodoGroupComponent implements OnInit {
         err => {
             console.log(err);
         });
+        if(updatedTodo.completed)
+            this.completed.push(updatedTodo);
         let index = this.todos.indexOf(todo);
         this.todos[index] = updatedTodo;
 
-        return updatedTodo;
+
     }
 
     //Handles deletion from single item emmiter
@@ -86,6 +94,37 @@ export class TodoGroupComponent implements OnInit {
             console.log(err);
         });
         
+    }
+
+    onEditTodo(todo: Todo) {
+        console.log("editing");
+        todo.editing = true;
+
+    }
+    updateTodo(todo: Todo, newTitle: string ){
+        todo.editing = false;
+
+        let updatedTodo = new Todo();
+        
+        this.dataService.updateItem(todo.id, {
+            title: newTitle
+        })
+        .subscribe( item => {
+            updatedTodo.id = item._links.item.href;
+            updatedTodo.title = item.title;
+            updatedTodo.body = item.body;
+            updatedTodo.completed = item.completed;
+        },
+        err => {
+            console.log(err);
+        });
+        let index = this.todos.indexOf(todo);
+        this.todos[index] = updatedTodo;
+
+    }
+
+    cancelEditing(todo: Todo) {
+        todo.editing = false;
     }
 
 }

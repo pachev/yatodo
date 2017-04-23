@@ -21,21 +21,19 @@ export class YatodoDataService {
     ) { }
 
 
-    // private instance variable to hold base url
-    // TODO: grab settings from a config file 
     private baseUrl = this.settings.baseUserUrl; 
     private itemUrl = this.settings.itemUrl;
     private groupUrl = this.settings.groupUrl;
     private groupCountUrl = this.settings.groupCountUrl;;
 
+
+    //Retrieving all Todos
     getItems() : Observable<any>{
 
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
-        // ...using get request
         return this.http.get(this.baseUrl + `${localStorage.getItem("currentUserId")}/items`, options)
-        // ...and calling .json() on the response to return data
         .map((res:Response) => { 
             return res.json() ;
         })
@@ -44,6 +42,7 @@ export class YatodoDataService {
 
     }
 
+    //Retrieving all Todos in a certain group
     getGroupItems(url: string) : Observable<any>{
 
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
@@ -60,7 +59,7 @@ export class YatodoDataService {
 
     }
 
-    //Retrieving group items
+    //Retrieving all groups
     getGroups() : Observable<any>{
 
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
@@ -76,6 +75,7 @@ export class YatodoDataService {
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
     }
+
     //Retrieving group Count
     getGroupCount(name: string) : Observable<any>{
 
@@ -106,7 +106,7 @@ export class YatodoDataService {
         .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }   
 
-    // Add a new item
+    // Add a new group
     addGroup (body: Object): Observable<any> {
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
         let options = new RequestOptions({ headers: headers }); // Create a request option
@@ -119,7 +119,7 @@ export class YatodoDataService {
         .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }   
 
-    // Update a item
+    // Update an item
     updateItem (url: string, body: Object): Observable<any> {
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
         let options = new RequestOptions({ headers: headers }); // Create a request option
@@ -129,7 +129,7 @@ export class YatodoDataService {
         .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }   
 
-    // Delete a item
+    // Delete an item
     removeItem (url: string): Observable<any> {
         let headers = new Headers({ 'Authorization': 'Token '+this.authService.token});
         let options = new RequestOptions({ headers: headers }); // Create a request option

@@ -1,10 +1,10 @@
 export class Todo {
-    id: String;
-    title: String = '';
-    body: String = '';
+    id: string;
+    title: string = '';
+    body: string = '';
     completed: boolean = false;
-    created: String = '';
-    selected: boolean=false;
+    created: string = '';
+    editing: boolean=false;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

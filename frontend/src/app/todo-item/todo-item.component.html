@@ -1,7 +1,7 @@
-<div class="view">
+<div class="view" [class.hide]="todo.editing">
   <input class="toggle-check" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.completed">
   <div class="title-wrapper">
-      <span class="title-wrapper-title">{{todo.title}}</span>
+      <span (dblclick)="editTodo(todo)" class="title-wrapper-title">{{todo.title}}</span>
   </div>
   <a class="destroy glyphicon glyphicon-trash"
       (click)="removeTodo(todo)"></a>

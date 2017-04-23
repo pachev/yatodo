@@ -7,9 +7,13 @@
         <div class="col-md-10 col-sm-9 group-wrapper">
             <div class="homepage-section">
             <div class="homepage-header"></div>
-            <app-todo-group [todos]="todos" [group]="currentGroup" [inbox]="inbox"
-                ></app-todo-group>
+            <app-todo-group [todos]="todos" [group]="currentGroup" [inbox]="inbox" 
+                [completed]="completedItems">
+            </app-todo-group>
             </div>
+            <!-- <app&#45;todo&#45;group&#45;complete [completedItems]="completedItems" *ngIf="currentGroup.name=='Todos'" -->
+            <!--     [currentGroup]="todos"> -->
+            <!-- </app&#45;todo&#45;group&#45;complete> -->
         </div>
     </div>
 </section>

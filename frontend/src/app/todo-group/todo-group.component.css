@@ -19,26 +19,17 @@ a.list-group-item.item {
     background-color: #c1baad;
     margin: 2px;
 }
+.edit{
+    background-color: transparent;
+    background: none !important;
+    color: black;
+    padding-left: 28px;
+    border-radius: 2px !important;
+    font-size: 20px;
+    width: 100%;
 
-/* .todo{ */
-/*   animation-name: fadeInUp; */
-/*   animation-duration: 0.25s; */
-/*   animation-fill-mode: both; */
-/*   animation-timing-function: ease-out; */
-/*   opacity: 0; */
-/* } */
-/*  */
-/*  */
-/* TODO: Fix animation on every click of the checked button */
-/* [ngStyle]="{'animation-delay': i*0.15+'s'}" */
-/* @keyframes fadeInUp{ */
-/*   from{ */
-/*     transform: translate3d(0, 100%, 0); */
-/*     opacity: 0; */
-/*   } */
-/*  */
-/*   to{ */
-/*     opacity: 1; */
-/*     transfrom: none; */
-/*   } */
-/* } */
+}
+
+input.edit:focus {
+    border: none;
+}

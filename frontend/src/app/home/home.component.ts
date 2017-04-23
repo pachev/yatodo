@@ -11,12 +11,12 @@ import {Settings} from '../settings';
 })
 export class HomeComponent implements OnInit {
 
+    // List of two way bindngs to be distributed to child components
     public todos: Todo[];
     public groups: TodoGroup[];
-    public currentGroup: TodoGroup; 
+    public currentGroup: TodoGroup = new TodoGroup(); 
+    public completedItems = []; 
     public inbox: TodoGroup = new TodoGroup();
-
-    public initialAnimation = true;
 
     constructor(private dataService: YatodoDataService, private settings: Settings) { }
 
@@ -29,8 +29,7 @@ export class HomeComponent implements OnInit {
     //Initally display all of the todos
     loadAllTodos(){
         let todos = [];
-        this.inbox.name = 'Todos'
-        let count = 0;
+        this.inbox.name = 'Todos';
         this.inbox.items = this.settings.baseUserUrl+ `${localStorage.getItem("currentUserId")}/items`;
 
         this.dataService.getItems()
@@ -43,25 +42,26 @@ export class HomeComponent implements OnInit {
                     todo.title = item.title;
                     todo.body = item.body;
                     todo.completed = item.completed;
+                    if(todo.completed)
+                        this.completedItems.push(todo);
+
                     todos.push(todo);
                 });
 
             this.inbox.count = emb._embedded.items.length;
             this.inbox.selected = true;
             this.currentGroup = this.inbox;
-            
-
             }
+            this.todos = todos;
             
         },
         err => {
             console.log(err);
-            //TODO: add better error handling
         });
 
-        this.todos = todos;
     }
 
+    //This is called when groups are changed
     loadGroupTodo(group: TodoGroup) {
         let todos = [];
         this.currentGroup.selected = false;
@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
         this.todos = todos;
     }
 
-    //For Sidebar Groups
+    //Loads the groups that are displayed on the sidebar
     loadGroups(){
         let groups = [];
 
@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    //TODO: Refractor to remove multiple requests
+    //Initally load the count of each group for display when the app starts
     loadCounts(){
         this.groups.forEach((group) =>{
             this.dataService.getGroupCount(group.name)
@@ -128,10 +128,14 @@ export class HomeComponent implements OnInit {
         });
     }
 
+
+
+    //Handling of switch event from todo-sidebar component
     onSwitchGroup(group: TodoGroup){
         this.loadGroupTodo(group);
     }
 
+    //Handling of add event from todo-sidebar component
     onAddGroup(group: TodoGroup){
         this.dataService.addGroup(group)
         .subscribe( emb => {
@@ -143,7 +147,5 @@ export class HomeComponent implements OnInit {
             console.log(err);
         });
     }
-
-
 
 }

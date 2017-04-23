@@ -7,7 +7,12 @@
                 <app-todo-item
                   [todo]="todo"
                   (toggleComplete)="onToggleTodoComplete($event)"
+                  (edit)="onEditTodo($event)"
                   (remove)="onRemoveTodo($event)"></app-todo-item>
+              <input autofocus="" class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo 
+              (blur)="updateTodo(todo, editedtodo.value)" 
+              (keyup.enter)="updateTodo(todo, editedtodo.value)" 
+              (keyup.escape)="cancelEditingTodo(todo)">
           </li>
       </ul>
   </div>
