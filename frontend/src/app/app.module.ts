@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoGroupComponent } from './todo-group/todo-group.component';
 import { TodoItemCreateComponent } from './todo-item-create/todo-item-create.component';
-import { TodoGroupCompleteComponent } from './todo-group-complete/todo-group-complete.component';
 import { TodoSidebarComponent } from './todo-sidebar/todo-sidebar.component';
 import { LoginComponent } from './login/login.component';
 
@@ -34,7 +33,6 @@ import { RegisterComponent } from './register/register.component';
     TodoItemComponent,
     TodoGroupComponent,
     TodoItemCreateComponent,
-    TodoGroupCompleteComponent,
     TodoSidebarComponent,
     LoginComponent,
     HomeComponent,

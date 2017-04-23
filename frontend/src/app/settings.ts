@@ -3,7 +3,7 @@ export class Settings {
     public itemUrl = `${this.baseUrl}items`;
     public baseUserUrl = `${this.baseUrl}users/`; 
     public groupUrl = `${this.baseUrl}groups`;
-    public groupCountUrl = `${this.itemUrl}/search/countByGroup_Name`;
+    public groupCountUrl = `${this.itemUrl}/search/countByGroup_NameAndCompletedFalse`;
     
 
 }

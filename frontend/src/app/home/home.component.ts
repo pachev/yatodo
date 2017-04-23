@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
     public todos: Todo[];
     public groups: TodoGroup[];
     public currentGroup: TodoGroup = new TodoGroup(); 
-    public completedItems = []; 
     public inbox: TodoGroup = new TodoGroup();
 
     constructor(private dataService: YatodoDataService, private settings: Settings) { }
@@ -43,12 +42,12 @@ export class HomeComponent implements OnInit {
                     todo.body = item.body;
                     todo.completed = item.completed;
                     if(todo.completed)
-                        this.completedItems.push(todo);
-
-                    todos.push(todo);
+                        this.inbox.completed.push(todo);
+                    else
+                        todos.push(todo);
                 });
 
-            this.inbox.count = emb._embedded.items.length;
+            this.inbox.count = todos.length;
             this.inbox.selected = true;
             this.currentGroup = this.inbox;
             }
@@ -64,6 +63,7 @@ export class HomeComponent implements OnInit {
     //This is called when groups are changed
     loadGroupTodo(group: TodoGroup) {
         let todos = [];
+        group.completed= [];
         this.currentGroup.selected = false;
         this.dataService.getGroupItems(group.items)
         .subscribe(emb => {
@@ -75,17 +75,21 @@ export class HomeComponent implements OnInit {
                     todo.title = item.title;
                     todo.body = item.body;
                     todo.completed = item.completed;
-                    todos.push(todo);
+                    if(todo.completed)
+                        group.completed.push(todo);
+                    else
+                        todos.push(todo);
                 });
 
             }
             group.selected = true;
+            group.count = todos.length;
             this.currentGroup = group;
+            this.todos = todos;
         },
         err =>{
             console.log(err);
         });
-        this.todos = todos;
     }
 
     //Loads the groups that are displayed on the sidebar
@@ -111,7 +115,6 @@ export class HomeComponent implements OnInit {
         },
         err => {
             console.log(err);
-            //TODO: add better error handling
         });
     }
 

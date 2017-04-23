@@ -25,7 +25,7 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
     List<Item> findByTitle(@PathVariable("title") String title);
     List<Item> findByCompleted(@PathVariable("completed")boolean completed);
-    int countByGroup_Name(@Param("name") String name);
+    int countByGroup_NameAndCompletedFalse(@Param("name") String name);
     long count();
 
 }

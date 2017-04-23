@@ -1,4 +1,4 @@
-<div class="view" [class.hide]="todo.editing">
+<div class="view" [class.hide]="todo.editing" [class.completed]="todo.completed">
   <input class="toggle-check" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.completed">
   <div class="title-wrapper">
       <span (dblclick)="editTodo(todo)" class="title-wrapper-title">{{todo.title}}</span>

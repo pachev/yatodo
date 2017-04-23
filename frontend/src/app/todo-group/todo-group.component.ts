@@ -11,7 +11,6 @@ import {YatodoDataService} from '../service/yatodo-data.service';
 })
 export class TodoGroupComponent implements OnInit {
 
-
     @Input()
     todos: Todo[]; //List of todos coming in from the home component
 
@@ -21,9 +20,7 @@ export class TodoGroupComponent implements OnInit {
     @Input()
     group: TodoGroup; //The current group displayed coming in from home component
 
-    @Input()
-    completed: Todo[]; //The current group of completed items
-
+    public displayCompleted: boolean  = false;
 
 
 
@@ -31,6 +28,7 @@ export class TodoGroupComponent implements OnInit {
 
     //Load the llist of remote items as this component gets initated
     ngOnInit() {
+        this.displayCompleted = false;
     }
 
 
@@ -67,14 +65,28 @@ export class TodoGroupComponent implements OnInit {
             updatedTodo.title = item.title;
             updatedTodo.body = item.body;
             updatedTodo.completed = item.completed;
+
+            if(updatedTodo.completed){
+                this.group.completed.push(updatedTodo);
+                this.todos = this.todos
+                .filter(t => t.id !== todo.id);
+                this.group.count -=1;
+                if(this.group.name !=="Todos") //prevent updating inbox twice
+                    this.inbox.count -=1;
+            }
+            else{
+                this.group.count +=1;
+                this.todos.push(updatedTodo);
+                this.group.completed = this.group.completed
+                .filter(t => t.id !== todo.id);
+                if(this.group.name !=="Todos") //prevent updating inbox twice
+                    this.inbox.count +=1;
+            }
         },
         err => {
             console.log(err);
         });
-        if(updatedTodo.completed)
-            this.completed.push(updatedTodo);
-        let index = this.todos.indexOf(todo);
-        this.todos[index] = updatedTodo;
+
 
 
     }
@@ -93,7 +105,7 @@ export class TodoGroupComponent implements OnInit {
         err =>{
             console.log(err);
         });
-        
+
     }
 
     onEditTodo(todo: Todo) {
@@ -104,27 +116,44 @@ export class TodoGroupComponent implements OnInit {
     updateTodo(todo: Todo, newTitle: string ){
         todo.editing = false;
 
+        if(newTitle.trim().length === 0){
+            this.onRemoveTodo(todo);
+            return;
+        }
+
+
         let updatedTodo = new Todo();
-        
+
         this.dataService.updateItem(todo.id, {
-            title: newTitle
+            title: newTitle.trim()
         })
         .subscribe( item => {
             updatedTodo.id = item._links.item.href;
             updatedTodo.title = item.title;
             updatedTodo.body = item.body;
             updatedTodo.completed = item.completed;
+
+            if(updatedTodo.completed){
+                let index = this.group.completed.indexOf(todo);
+                this.group.completed[index] = updatedTodo;
+            }else{
+                let index = this.todos.indexOf(todo);
+                this.todos[index] = updatedTodo;
+            }
         },
         err => {
             console.log(err);
         });
-        let index = this.todos.indexOf(todo);
-        this.todos[index] = updatedTodo;
 
     }
 
     cancelEditing(todo: Todo) {
         todo.editing = false;
     }
+
+    showCompleted() {
+        this.displayCompleted = !this.displayCompleted;
+    }
+
 
 }
