@@ -4,7 +4,7 @@ Yet Another Todo app
 This is another Todo web app which uses Spring for the API and AngularJS 2 for the 
 frontend. 
 
-Click [here][1] for a running demo.
+Click [here](http://52.57.161.17/) for a running demo.
 
 
 ## Running
