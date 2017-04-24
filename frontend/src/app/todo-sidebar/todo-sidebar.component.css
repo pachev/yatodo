@@ -80,9 +80,9 @@
     color: white;
     text-align: center;
     font-size: 1.7rem;
-    top: 5px;
-    left: 5px;
-    position: fixed;
+    top: -3px;
+    left: -22px;
+    position: absolute;
 }
 .item-group{
     padding-top: 10px;

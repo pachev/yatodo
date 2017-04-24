@@ -4,22 +4,22 @@ Yet Another Todo app
 This is another Todo web app which uses Spring for the API and AngularJS 2 for the 
 frontend. 
 
-Click [here](http://52.57.161.17/) for a running demo.
+Click [here](http://yatodo.pachevjoseph.com/) for a running demo.
 
 
 ## Running
 
-Each part can be ran individually. Refer to the READMEs inside the api project and the 
+Each part can be ran individually. Refer to the READMEs inside the api, and 
 frontend project for further documentation. 
 
 ### Running With Docker
 
 Inside the main repository is a `docker-compose.yml` file which will build the entire
-application including frontend and backend. Simply run the following command to to bring the 
+application including frontend and backend. Simply run the following command to bring up the 
 entire application:
 
 ```
-$ docker-compose up --build`
+$ docker-compose up --build
 
 ```
 
