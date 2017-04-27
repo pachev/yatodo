@@ -1,6 +1,6 @@
 export class Settings {
 
-    public baseUrl = 'https://yatodo-api.pachevjoseph.com/api/';
+    public baseUrl = 'http://localhost:8000/api/';
     public itemUrl = `${this.baseUrl}items`;
     public baseUserUrl = `${this.baseUrl}users/`; 
     public groupUrl = `${this.baseUrl}groups`;

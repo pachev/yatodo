@@ -34,18 +34,18 @@ export class TodoGroupComponent implements OnInit {
 
     //From the todo create component, handle the add emmiter
     onAddTodo(todo) {
+
+        //Optimistically adds elements to UI before being sent to server
+        let new_todo = todo;
+        this.todos.push(new_todo);
+        this.group.count +=1;
+        if(this.group.name !=="Todos") //prevent updating inbox twice
+            this.inbox.count +=1;
+
         this.dataService.addItem(todo, this.group)
         .subscribe( item => {
-            let todo = new Todo();
-            todo.id = item._links.item.href;
-            todo.title = item.title;
-            todo.body = item.body;
-            todo.completed = item.completed;
-            this.todos.push(todo);
-            this.group.count +=1;
-
-            if(this.group.name !=="Todos") //prevent updating inbox twice
-                this.inbox.count +=1;
+            new_todo.id = item._links.item.href;
+            new_todo.body = item.body;
         },
         err => {
             console.log(err);
@@ -55,33 +55,32 @@ export class TodoGroupComponent implements OnInit {
 
     //From the todo create component, handle the toggle emmiter
     onToggleTodoComplete(todo) {
-        let updatedTodo = new Todo();
-        
+        let updatedTodo = todo;
+        updatedTodo.completed = !updatedTodo.completed;
+
+        if(updatedTodo.completed){
+            this.group.completed.push(updatedTodo);
+            this.todos = this.todos
+            .filter(t => t.id !== todo.id);
+            this.group.count -=1;
+            if(this.group.name !=="Todos") //prevent updating inbox twice
+                this.inbox.count -=1;
+        }
+        else{
+            this.group.count +=1;
+            this.todos.push(updatedTodo);
+            this.group.completed = this.group.completed
+            .filter(t => t.id !== todo.id);
+            if(this.group.name !=="Todos") //prevent updating inbox twice
+                this.inbox.count +=1;
+        }
+
         this.dataService.updateItem(todo.id, {
-            completed: !todo.completed
+            completed: updatedTodo.completed
         })
         .subscribe( item => {
-            updatedTodo.id = item._links.item.href;
-            updatedTodo.title = item.title;
-            updatedTodo.body = item.body;
             updatedTodo.completed = item.completed;
-
-            if(updatedTodo.completed){
-                this.group.completed.push(updatedTodo);
-                this.todos = this.todos
-                .filter(t => t.id !== todo.id);
-                this.group.count -=1;
-                if(this.group.name !=="Todos") //prevent updating inbox twice
-                    this.inbox.count -=1;
-            }
-            else{
-                this.group.count +=1;
-                this.todos.push(updatedTodo);
-                this.group.completed = this.group.completed
-                .filter(t => t.id !== todo.id);
-                if(this.group.name !=="Todos") //prevent updating inbox twice
-                    this.inbox.count +=1;
-            }
+            //TODO: Handle otimistic errors here
         },
         err => {
             console.log(err);
@@ -93,14 +92,20 @@ export class TodoGroupComponent implements OnInit {
 
     //Handles deletion from single item emmiter
     onRemoveTodo(todo: Todo) {
+        if(!todo.completed){
+            this.todos = this.todos
+            .filter(t => t.id !== todo.id);
+            this.group.count -=1;
+            if(this.group.name !=="Todos") //prevent updating inbox twice
+                this.inbox.count -=1;
+        }else{
+            this.group.completed = this.group.completed
+            .filter(t => t.id !== todo.id);
+        }
 
         this.dataService.removeItem(todo.id.toString())
         .subscribe(item => {
-            if(item){
-                this.todos = this.todos
-                .filter(t => t.id !== todo.id);
-                this.group.count -=1;
-            }
+            //TODO: handle optimistic errors here;
         }, 
         err =>{
             console.log(err);
@@ -109,7 +114,6 @@ export class TodoGroupComponent implements OnInit {
     }
 
     onEditTodo(todo: Todo) {
-        console.log("editing");
         todo.editing = true;
 
     }
@@ -121,8 +125,16 @@ export class TodoGroupComponent implements OnInit {
             return;
         }
 
+        let updatedTodo = todo;
+        updatedTodo.title = newTitle.trim();
 
-        let updatedTodo = new Todo();
+        if(updatedTodo.completed){
+            let index = this.group.completed.indexOf(todo);
+            this.group.completed[index] = updatedTodo;
+        }else{
+            let index = this.todos.indexOf(todo);
+            this.todos[index] = updatedTodo;
+        }
 
         this.dataService.updateItem(todo.id, {
             title: newTitle.trim()
@@ -132,14 +144,8 @@ export class TodoGroupComponent implements OnInit {
             updatedTodo.title = item.title;
             updatedTodo.body = item.body;
             updatedTodo.completed = item.completed;
-
-            if(updatedTodo.completed){
-                let index = this.group.completed.indexOf(todo);
-                this.group.completed[index] = updatedTodo;
-            }else{
-                let index = this.todos.indexOf(todo);
-                this.todos[index] = updatedTodo;
-            }
+            //TODO: handle optimistic errors here;
+            
         },
         err => {
             console.log(err);
