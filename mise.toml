@@ -1,0 +1,3 @@
+[tools]
+gradle = "3.4"
+java = "corretto-8"
